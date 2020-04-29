@@ -10,4 +10,5 @@
 ### 而class等关键之其实是语法糖，背后的原理还是原型继承关系，不必强行把javascript 往其他基于类的面向对象方向上理解和设计。
 
 ###  async 是 promise的语法糖
-### 注意async可以实现一个异步的Generator 
+### 注意async可以实现一个异步的Generator（可迭代协议与迭代器协议）
+### for await of 异步迭代
