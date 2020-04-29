@@ -2,8 +2,8 @@
 
 ## 变量提升
  关键词：
- - var 提升的是定义而非赋值。  let const 行为比较;
- - try catch finnal return语句
+ - var 提升的是定义而非赋值，与let const 行为比较;
+ - try catch finally return语句
 
 ## 面向对象 vs javascript面向对象
 ### javascript是基于原型的面向对象，
