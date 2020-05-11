@@ -1,7 +1,7 @@
 <template>
-    <div class="wrapper">
-        <div id="mountNode"></div>
-    </div>
+  <div class="wrapper">
+    <div id="mountNode"></div>
+  </div>
 </template>
 
 <script>
@@ -47,7 +47,11 @@
                                 }
                             },
                             "drag-canvas",
-                            "zoom-canvas"
+                            "zoom-canvas",
+                            'drag-node',
+                            'click-select'
+                            
+                            
                         ]
                     },
                     defaultNode: {
@@ -68,7 +72,7 @@
                         }
                     },
                     layout: {
-                        type: "compactBox",
+                        type: "mindmap",
                         direction: "H", // H / V / LR / RL / TB / BT
                         nodeSep: 30,
                         rankSep: 100,
@@ -76,8 +80,19 @@
                             if (d.children.length >0) {
                                 return 'left';
                             }
-                            return 'right';
+                            else if (d.children.length >4) {
+                                console.log(d);
+                                
+                                return 'right';
+                            }else{
+                                return 'right';
+                            }
+                            
                         },
+                        getHGap:() => {
+                        // if (d.id === 'testId') return 50;
+                          return 100;
+                        }
                     }
                 });
                 graph.node(function (node) {
@@ -168,7 +183,11 @@
                 }
 
                 for (let p of Object.getOwnPropertyNames(current.object)) {
+                
+                    if(p==='prototype') return 
+                    
                     let property = Object.getOwnPropertyDescriptor(current.object, p);
+                
                     if (
                         // eslint-disable-next-line no-prototype-builtins
                         property.hasOwnProperty("value") &&
