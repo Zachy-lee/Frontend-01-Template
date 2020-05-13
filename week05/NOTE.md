@@ -59,3 +59,21 @@ TCP/IP 粘包问题
 ### HTTP
 - Request
 - Response
+
+
+### 原生浏览器客户端请求回顾
+
+```
+var xhr=new XMLHttpRequest;
+xhr.open('get','http://127.0.0.1:8088',true)
+xhr.send(null)
+xhr.response // ok
+xhr.HEADERS_RECEIVED //2
+xhr.addEventListener('readystatechange',function(res){
+    console.log(`load:xhr.readyState == ${xhr.readyState} ,xhr.status=${xhr.status}`);
+})
+xhr.onreadystatechange = function () {
+    console.log(`readystatechange:xhr.readyState == ${xhr.readyState} ,xhr.status=${xhr.status}`);
+}
+
+```
