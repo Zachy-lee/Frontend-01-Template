@@ -10,6 +10,9 @@
 - bitmap
 
 ## 网络基础知识回顾
+
+![网络模型](https://github.com/Zachy-lee/Frontend-01-Template/blob/master/week05/images/4-5-7.jpg)
+
 ISO-OSI七层网络模型
 - 应用层 HTTP               
 - 表示层 HTTP
@@ -22,8 +25,6 @@ ISO-OSI七层网络模型
 
 
 QPS，Queries-per-second）是对一个特定的查询服务器在规定时间内所处理流量多少的衡量标准
-
-图片插入
 
 ### TCP/IP 一些基础知识
 - 流
@@ -53,8 +54,8 @@ TCP/IP 粘包问题
 - Fiddler
 
 ### 基于ABNF语义定义的HTTP消息格式
-[图片ABNF]
 
+![ABNF](https://github.com/Zachy-lee/Frontend-01-Template/blob/master/week05/images/ABNF.png)
 
 ### HTTP
 - Request
