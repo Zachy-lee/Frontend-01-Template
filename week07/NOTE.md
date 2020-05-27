@@ -1,6 +1,5 @@
 
 ### Flex布局
-![http://www.ruanyifeng.com/blogimg/asset/2015/bg2015071004.png]()
 
 - Flex 布局教程：语法篇
 https://www.ruanyifeng.com/blog/2015/07/flex-grammar.html
