@@ -37,6 +37,77 @@ BFC：block formatting context
 - 绝对定位的元素 ,position:absolute
 - overflower 属性值不是visible的元素
 
+## 选择器伪类与伪元素
+CSS选择器一般不支持往父及寻找 避免回溯，这是排版渲染机制决定
+### 伪类
+- :any-link.
+
+- :link :visited (link没访问的 visited访问过的) 跟超链接相关的选择器
+
+- :hover 
+
+- :active 
+
+- :focus
+
+- :target
+
+- Active 和 focus 既可以键盘触发也可以鼠标触发，hover只可以被鼠标触发，target 如果当锚点用会有target
+
+树结构
+
+- :empty
+- :nth-child()
+- :nth-last-child()
+- :first-child :last-child :only-child
+
+### 伪元素
+
+- ::before 
+
+- ::after 
+
+- ::first-letter
+
+font系列
+
+color系列
+
+background系列
+
+word-spacing
+
+letter-spacing
+
+text-decoration
+
+text-transform
+
+line-height
+
+float
+
+vertical-align
+
+盒模型系列: margin padding border
+
+::first-line
+
+font系列
+
+color系列
+
+background系列
+
+word-spacing
+
+letter-spacing
+
+text-decoration
+
+text-transform
+
+line-height
 
 ## css通用布局
 
