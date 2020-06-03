@@ -1,9 +1,10 @@
 const http = require('http');
+const port = '8088'
 
 // Returns content-type = text/plain
 const server = http.createServer((req, res) => {
     console.log('request received');
-    console.log(req);
+    console.log(req.headers);
 
     res.setHeader('Content-Type', 'text/html');
     res.setHeader('X-Foo', 'bar');
@@ -12,4 +13,4 @@ const server = http.createServer((req, res) => {
 });
 
 server.listen('8088')
-console.log('server-started');
+console.log(`server-started-linsten:${port}`);
