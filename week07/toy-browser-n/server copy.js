@@ -28,8 +28,7 @@ body div img{
         <img />
     </div>
 </body>
-</html>
-    `);
+</html>`);
 });
 
 server.listen('8088')

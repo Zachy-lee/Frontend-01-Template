@@ -11,7 +11,7 @@ const server = http.createServer((req, res) => {
     res.end(`
 <html maaa=a >
 <head>
-    <style>
+<style>
 body div #myid{
     width:100px;
     background-color: #ff5000;
@@ -20,7 +20,7 @@ body div img{
     width:30px;
     background-color: #ff1111;
 }
-    </style>
+</style>
 </head>
 <body>
     <div>
