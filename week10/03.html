@@ -30,7 +30,7 @@
     <script>
         let o = '⭕';
         let x = '❌';
-        let patten = [
+        let pattern = [
             [1, 0, 0],
             [0, 1, 0],
             [0, 0, 2]
@@ -47,8 +47,8 @@
                     var cell = document.createElement('div')
                     cell.classList.add('cell')
                     cell.innerHTML =
-                        patten[i][j] === 2 ? '❌' :
-                        patten[i][j] === 1 ? '⭕' :
+                        pattern[i][j] === 2 ? '❌' :
+                        pattern[i][j] === 1 ? '⭕' :
                         ""
                     cell.addEventListener("click", function() {
                         console.log('x,y', i, j);
@@ -63,9 +63,9 @@
 
         function move(x, y) {
             console.log('x,y', x, y);
-            if (patten[y][x] !== 0)
+            if (pattern[y][x] !== 0)
                 return
-            patten[y][x] = 1
+            pattern[y][x] = 1
             color = 3 - color // 交换律运算
             show()
         }
