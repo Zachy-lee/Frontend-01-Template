@@ -32,15 +32,13 @@
         let x = '❌';
         let pattern = [
             [1, 0, 0],
-            [0, 1, 0],
-            [0, 0, 2]
+            [0, 2, 0],
+            [0, 0, 0]
         ]
-        let color = 1;
         show()
 
         function show() {
             let board = document.querySelector('#board')
-            board.innerHTML = ''
             for (let i = 0; i < 3; i++) {
                 // var line = document.createElement('div')
                 for (let j = 0; j < 3; j++) {
@@ -50,24 +48,9 @@
                         pattern[i][j] === 2 ? '❌' :
                         pattern[i][j] === 1 ? '⭕' :
                         ""
-                    cell.addEventListener("click", function() {
-                        console.log('x,y', i, j);
-                        move(j, i)
-                    });
                     board.appendChild(cell)
                 }
-                board.appendChild(document.createElement('br'))
             }
-        }
-
-
-        function move(x, y) {
-            console.log('x,y', x, y);
-            if (pattern[y][x] !== 0)
-                return
-            pattern[y][x] = 1
-            color = 3 - color // 交换律运算
-            show()
         }
     </script>
 </body>

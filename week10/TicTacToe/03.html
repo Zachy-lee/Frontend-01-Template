@@ -35,23 +35,38 @@
             [0, 0, 0],
             [0, 0, 2]
         ]
-        show()
+        let color = 1;
 
-        function show() {
+
+        function show(pattern) {
             let board = document.querySelector('#board')
+
+            board.innerHTML = ""
+
             for (let i = 0; i < 3; i++) {
                 // var line = document.createElement('div')
                 for (let j = 0; j < 3; j++) {
                     var cell = document.createElement('div')
                     cell.classList.add('cell')
-                    cell.innerHTML =
+                    cell.innerText =
                         pattern[i][j] === 2 ? '❌' :
                         pattern[i][j] === 1 ? '⭕' :
                         ""
+                    cell.addEventListener("click", () => move(j, i));
                     board.appendChild(cell)
                 }
+                board.appendChild(document.createElement('br'))
             }
         }
+
+        function move(x, y) {
+            if (pattern[y][x] !== 0)
+                return
+            pattern[y][x] = color
+            color = 3 - color // 交换律运算
+            show(pattern)
+        }
+        show(pattern)
     </script>
 </body>
 
