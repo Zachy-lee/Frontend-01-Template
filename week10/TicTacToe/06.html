@@ -9,7 +9,7 @@
         #board {
             width: 350px;
         }
-        
+
         .cell {
             width: 100px;
             height: 100px;
@@ -31,11 +31,11 @@
         let o = '⭕';
         let x = '❌';
         let pattern = [
-            [2, 0, 0],
+            [0, 2, 0],
             [0, 1, 0],
-            [0, 0, 1]
+            [0, 0, 0]
         ]
-        let color = 2;
+        let color = 1;
 
 
         function show(pattern) {
@@ -50,8 +50,8 @@
                     cell.classList.add('cell')
                     cell.innerText =
                         pattern[i][j] === 2 ? '❌' :
-                        pattern[i][j] === 1 ? '⭕' :
-                        ""
+                            pattern[i][j] === 1 ? '⭕' :
+                                ""
                     cell.addEventListener("click", () => move(j, i));
                     board.appendChild(cell)
                 }
@@ -69,7 +69,7 @@
             color = 3 - color // 交换律运算
             show(pattern)
             if (willWin(pattern, color)) {
-                console.log(color === 2 ? "❌ will winner!" : '⭕ will winner!');
+                console.log(color === 2 ? "❌ will win!" : '⭕ will win!');
             }
         }
 
@@ -138,13 +138,45 @@
                     let tmp = clone(pattern)
                     tmp[i][j] = color;
                     if (check(tmp, color)) {
-                        return true;
+                        return [i, j]
                     }
                 }
             }
             return false
         }
 
+        function bestChoice(pattern, color) {
+            let point = willWin(pattern, color)
+            if (point) {
+                return {
+                    point: point,
+                    result: 1 // -1 lose; 0 tie ;1 win
+                }
+            }
+            let result = -1
+            outer:for (let i = 0; i < 3; i++) { 
+                for (let j = 0; j < 3; j++) {
+                    if (pattern[i][j] !== 0) {
+                        continue;
+                    }
+                    let tmp = clone(pattern)
+                    tmp[i][j] = color
+                    let opp = bestChoice(tmp, 3 - color) // 对手的bestChoose
+                    if (-opp.result >= result) { // 选择对方最坏情况
+                        point = [j, i];
+                        result = -opp.result;
+                    }
+                    if(result===1){
+                        break outer
+                    }
+                }
+            }
+
+            return {
+                point: point,
+                result: point ? result : 0 // 无point则平
+            }
+        }
         show(pattern)
     </script>
 </body>
