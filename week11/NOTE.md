@@ -140,9 +140,10 @@
  ## 1.A* 最优路径算法
  演示地址：https://github.com/Zachy-lee/Frontend-01-Template/blob/master/week11/path/1x-A-star.html
  
- ## 2.二叉堆 BinaryHeap改进算法
+ ## 2.二叉堆 BinaryHeap改进算法、一维数数组来标识二叉树更加高效
   演示地址：https://zachy-lee.github.io/Frontend-01-Template/week11/path/1x-BinaryHeap.html
-  
+ 
+ ## 其他比如 dom树diff算法 DP 广度优先与深度优先算法比较、搜索引擎中更高效字典树等
   
   # 三、正则
   
