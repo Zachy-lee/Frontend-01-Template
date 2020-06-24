@@ -133,16 +133,20 @@
             console.log(v)
         }
  ````
- 二、寻径问题
+ # 二、寻径问题
  
  演示时请先绘制一些路径障碍，再到控制台输入：findPath(map,[0,0],[50,50]) 其中参数可自己修改 从[0,0]找到[50,50]这个点的路径
  
- ## A* 最优路径算法
+ ## 1.A* 最优路径算法
  演示地址：https://github.com/Zachy-lee/Frontend-01-Template/blob/master/week11/path/1x-A-star.html
  
- ## 二叉堆 BinaryHeap改进算法
+ ## 2.二叉堆 BinaryHeap改进算法
   演示地址：https://zachy-lee.github.io/Frontend-01-Template/week11/path/1x-BinaryHeap.html
   
   
+  # 三、正则
   
+ ## match
+ ## replace
+ ## exec
  
