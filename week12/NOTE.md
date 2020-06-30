@@ -10,16 +10,130 @@
 ```
 
 ### 2.紧接上一步token生成处理
+```
+    function tokenize(source) {
+        var result = null;
+        var lastIndex = 0;
+        do {
+            lastIndex = regexp.lastIndex;
+            result = regexp.exec(source);
+            if (!result) break;
+            for (let i = 0; i <= dictionary.length; i++) {
+                if (result[i + 1]) {
+                    console.log(dictionary[i]);
+                }
+                console.log(result[0]);
+            }
+        } while (result);
+    }
+
+```
 
 ### 3.MutiplicativeExpression产生式编写
 
+```
+function MutiplicativeExpression(){
+        if(source[0].type==='Number'){
+            let node={
+                type:'MutiplicativeExpression',
+                children:source.shift()
+            }
+            source.unshift(node)
+            return MutiplicativeExpression(source)
+        }
+        if(source[0].type==='MutiplicativeExpression' && source.length>1 && source[1].type==='*'){
+            let node={
+                type:'MutiplicativeExpression',
+                children:[source.shift(),source.shift(),source.shift()]
+            }
+            source.unshift(node)
+            return MutiplicativeExpression(source)
+        }
+        if(source[0].type==='MutiplicativeExpression' && source.length>1 && source[1].type==='/'){
+            let node={
+                type:'MutiplicativeExpression',
+                children:[source.shift(),source.shift(),source.shift()]
+            }
+            source.unshift(node)
+            return MutiplicativeExpression(source)
+        }
+        if(source[0].type==='MutiplicativeExpression')
+            return source[0]
+        throw new Error();
+    }
+
+```
+
 ### 4.AdditiveExpression产生式编写
+
+```
+unction AdditiveExpression(source) {
+        if (source[0].type === 'Number') {
+            MutiplicativeExpression(source)
+            return AdditiveExpression(source)
+        }
+        if (source[0].type === 'MutiplicativeExpression') {
+            let node = {
+                type: 'AdditiveExpression',
+                children: [source.shift()]
+            }
+            source.unshift(node)
+            return AdditiveExpression(source)
+        }
+        if (source[0].type === 'AdditiveExpression' && source.length > 1 && source[1].type === '+') {
+            let node = {
+                type: 'AdditiveExpression',
+                children: [source.shift(), source.shift()]
+            }
+            MutiplicativeExpression(source)
+            node.children.push(source.shift());
+            source.unshift(node)
+            return AdditiveExpression(source)
+        }
+        if (source[0].type === 'AdditiveExpression' && source.length > 1 && source[1].type === '-') {
+            let node = {
+                type: 'AdditiveExpression',
+                children: [source.shift(), source.shift()]
+            }
+            MutiplicativeExpression(source)
+            node.children.push(source.shift());
+            source.unshift(node)
+            return AdditiveExpression(source)
+        }
+        if (source[0].type === 'AdditiveExpression')
+            return source[0]
+    }
+```
 
 ### 5.Expression编写
 
+```
+    function Expression(tokens) {
+        if (source[0].type === 'AdditiveExpression' && source[1].type === 'EOF') {
+            let node = {
+                type: "Expression",
+                children: [source.shift(), source.shift()]
+            }
+            source.unshift(node);
+            return node;
+        }
+        AdditiveExpression(source)
+        return Expression(source)
 
+    }
 
+```
+## Trie 多叉树
 
+## KMP 长字符串中找子串 O(m+n) 
+
+## WildCard 通配符算法 O(m+n) 
+
+## 正则 字符串通用模式匹配
+
+## 状态机 通用的字符串分析
+
+## LR
 
 
 

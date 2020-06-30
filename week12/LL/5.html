@@ -32,8 +32,11 @@
         }
         //[\s\S]
 
-        yield { type: 'EOF' }
+        yield {
+            type: 'EOF'
+        }
     }
+
     function Expression(tokens) {
         if (source[0].type === 'AdditiveExpression' && source[1].type === 'EOF') {
             let node = {
@@ -47,6 +50,7 @@
         return Expression(source)
 
     }
+
     function AdditiveExpression(source) {
         if (source[0].type === 'Number') {
             MutiplicativeExpression(source)
@@ -83,6 +87,7 @@
         if (source[0].type === 'AdditiveExpression')
             return source[0]
     }
+
     function MutiplicativeExpression() {
         if (source[0].type === 'Number') {
             let node = {
