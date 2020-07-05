@@ -1,6 +1,7 @@
 <script>
     // 相对高效 
-    // 失败的case find('abcxxyz','xy')
+    // 改进 可匹配 scase find('abcxxyz','xy')
+    // 失败的case find('abcabcabx','abcabx')
     function find(source, pattern) {
         let j = 0
         for (let i = 0; i < source.length; i++) {
@@ -8,7 +9,10 @@
             if (source[i] === pattern[j]) {
                 j++
             } else {
-                j = 0
+                j = 0;
+                if (source[i] === pattern[j]) {
+                    j++
+                }
             }
             if (j === pattern.length)
                 return true
