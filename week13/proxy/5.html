@@ -1,0 +1,91 @@
+<script>
+    // 失效场景 及解决方案
+    // 1.三元表达
+    // 2.value为对象的情况 => 
+    let handlers = new Map();
+    let reactiveties = new Map();
+    let usedReactivities = [];
+
+    let object = {
+        a: {
+            x: 3
+        },
+        b: 2
+    }
+
+    function reactive(obj) {
+        if (reactiveties.has(obj)) {
+            return reactiveties.get(obj)
+        }
+        let proxy = new Proxy(obj, {
+            //get时进行依赖收集
+            get(obj, prop) {
+                usedReactivities.push([obj, prop]);
+                if (typeof obj[prop] === 'object')
+                    return reactive(obj[prop])
+                return obj[prop]; // java面向切面编程
+            },
+            set(obj, prop, val) {
+                obj[prop] = val
+                    // console.log(handlers);
+                if (handlers.get(obj)) {
+                    if (handlers.get(obj).get(prop)) {
+                        for (const handler of handlers.get(obj).get(prop)) {
+                            handler() //执行依赖函数
+                        }
+                    }
+                }
+                return obj[prop]
+            }
+        })
+        reactiveties.set(obj, proxy);
+        reactiveties.set(proxy, proxy);
+        return proxy;
+    }
+
+    function effect(handler) {
+        usedReactivities = []
+        handler();
+        // console.log(usedReactivities);
+        for (const usedReactivity of usedReactivities) {
+            let [obj, prop] = usedReactivity;
+            // console.log([obj, prop]);
+            if (!handlers.has(obj)) {
+                handlers.set(obj, new Map())
+            }
+            if (!handlers.get(obj).has(prop)) {
+                handlers.get(obj).set(prop, []);
+            }
+            handlers.get(obj).get(prop).push(handler);
+        }
+    }
+
+    let v;
+    // let p = reactive({
+    //     a: 1
+    // })
+    // let p2 = reactive({
+    //     a: 2
+    // })
+    let p = reactive(object)
+    let b = false;
+
+
+    effect(() => {
+        v = p.a.x
+    })
+    console.log(v);
+    // p.a.x = 10
+    p.a = {
+        x: 4
+    }
+    console.log(v);
+    // effect(() => v = b ? 2 : p1.a); // 骗过代理
+    // console.log(v);
+    // b = true;
+    // p1.a = 10
+    // console.log(v);
+
+
+    // reactive
+</script>

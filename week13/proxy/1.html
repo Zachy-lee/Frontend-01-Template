@@ -1,48 +1,21 @@
 <script>
-    let obj={
-        a:1,
-        b:2
+    // proxy 基本用法
+    let object = {
+        a: 1,
+        b: 2
     }
-    let handlers=[];
-    function reactive(obj){
-        return new Proxy(obj,{
-        get(obj,prop){
-            console.log(obj,prop);
-            userReactivities.push([obj,prop])
-            return obj[prop]
+
+    // object.a = 1
+
+    let proxy = new Proxy(object, {
+        get(obj, prop) {
+            console.log(obj, prop);
+            return obj[prop]; // java面向切面编程
         },
-        set(obj,prop,val){
-          obj[prop]=val
-          if(handlers.get(obj))
-            if(handlers.get(obj).get(prop))
-                for(let handler of handlers.get(obj))
-                    handler()
-            return obj[prop]
-        },
-    })
-    }
-    function effect(handler){
-        userReactivities=[]
-        console.log(handler);
-        handlers.push(handler)
-        console.log(userReactivities);
-        for(let userReactivity of userReactivities){
-            let [obj,prop]=userReactivity;
-            console.log([obj,prop]);
-            if(!handlers.has(obj)){
-                handlers.set(obj,new Map())
-            }
-            if(!handlers.get(obj).has(prop)){
-                handlers.get(obj).set(prop,[])
-            }
-            handlers.get(obj).push(handler)
+        defineProperty(obj, prop, desc) {
+            return Object.defineProperty(obj, prop, desc)
         }
-    }
-    let dummy;
-    let proxy=reactive(obj)
-    effect(()=> dummy=proxy.a)
-    console.log(dummy);
-    proxy.a=2
-    console.log(dummy);
-    
+    })
+
+    // reactive
 </script>
