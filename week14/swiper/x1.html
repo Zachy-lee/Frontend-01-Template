@@ -20,7 +20,7 @@
             width: 100%;
             height: 100%;
             display: inline-block;
-            transition: transfrom .5 ease;
+            transition: transform .5s ease;
         }
     </style>
 </head>
@@ -55,24 +55,15 @@
                     current.style.transform = `translateX(${-100  * position}%)`
                     next.style.transform = `translateX(${100 - 100 * nextPosition}%)`
 
-                    setTimeout(() => {
-                            current.style.transition = '' //css
-                            next.style.transition = ''
-                            current.style.transform = `translateX(${-100 - 100 * position}%)`
-                            next.style.transform = `translateX(${-100 * nextPosition}%)`
-                        }, 16) // 16ms为一帧
+                    setTimeout(function() { // 安全方案
+                        current.style.transition = '' // means use css rulue
+                        next.style.transition = ''
+                        current.style.transform = `translateX(${-100 - 100 * position}%)`
+                        next.style.transform = `translateX(${-100 * nextPosition}%)`
+                        position = nextPosition;
+                    }, 16)
 
-                    // promise 
-                    // requestAnimationFrame(() => {
-                    //     requestAnimationFrame(() => { // 此处必要 与 setTimeout不完全等价
-                    //         current.style.transition = 'ease .5s'
-                    //         next.style.transition = 'ease .5s'
-                    //         current.style.transform = `translateX(${-100 - 100 * position}%)`
-                    //         next.style.transform = `translateX(${-100 * nextPosition}%)`
-                    //     })
-                    // })
-
-                    position = nextPosition;
+                    // promise 不推荐
 
                     setTimeout(nextPic, 3000);
                 }

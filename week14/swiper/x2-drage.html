@@ -20,7 +20,7 @@
             width: 100%;
             height: 100%;
             display: inline-block;
-            transition: transfrom .5 ease;
+            transition: transform .5s ease;
         }
     </style>
 </head>
@@ -39,6 +39,9 @@
                 for (const d of this.data) {
                     let element = document.createElement('img');
                     element.src = d;
+                    document.addEventListener('dragstart', event => {
+                        event.preventDefault()
+                    })
                     this.root.appendChild(element);
                 }
                 let position = 0;
@@ -55,30 +58,55 @@
                     current.style.transform = `translateX(${-100  * position}%)`
                     next.style.transform = `translateX(${100 - 100 * nextPosition}%)`
 
-                    setTimeout(() => {
-                            current.style.transition = '' //css
-                            next.style.transition = ''
-                            current.style.transform = `translateX(${-100 - 100 * position}%)`
-                            next.style.transform = `translateX(${-100 * nextPosition}%)`
-                        }, 16) // 16ms为一帧
+                    setTimeout(function() { // 安全方案
+                        current.style.transition = '' // means use css rulue
+                        next.style.transition = ''
+                        current.style.transform = `translateX(${-100 - 100 * position}%)`
+                        next.style.transform = `translateX(${-100 * nextPosition}%)`
+                        position = nextPosition;
+                    }, 16)
 
-                    // promise 
-                    // requestAnimationFrame(() => {
-                    //     requestAnimationFrame(() => { // 此处必要 与 setTimeout不完全等价
-                    //         current.style.transition = 'ease .5s'
-                    //         next.style.transition = 'ease .5s'
-                    //         current.style.transform = `translateX(${-100 - 100 * position}%)`
-                    //         next.style.transform = `translateX(${-100 * nextPosition}%)`
-                    //     })
-                    // })
-
-                    position = nextPosition;
+                    // promise 不推荐
 
                     setTimeout(nextPic, 3000);
                 }
-                setTimeout(nextPic, 3000);
+
+                // setTimeout(nextPic, 3000);
+                this.root.addEventListener('mousedown', event => {
+                    let startX = event.clientX,
+                        startY = event.clientY
+
+                    let lastPosition = (position - 1 + this.data.length) % this.data.length
+                    let nextPosition = (position + 1) % this.data.length
+
+                    let current = this.root.childNodes[position]
+                    let last = this.root.childNodes[lastPosition]
+                    let next = this.root.childNodes[nextPosition]
+
+                    current.style.transition = 'ease 0s'
+                    last.style.transition = 'ease 0s'
+                    next.style.transition = 'ease 0s'
+
+                    current.style.transform = `translateX(${ -500 * position}px)`
+                    last.style.transform = `translateX(${-500 -500 * lastPosition}px)`
+                    next.style.transform = `translateX(${500 -500 * nextPosition}px)`
+                    let move = event => {
+
+                        current.style.transform = `translateX(${event.clientX - startX -500 * position}px)`
+                        last.style.transform = `translateX(${event.clientX - startX - 500 - 500 * lastPosition}px)`
+                        next.style.transform = `translateX(${event.clientX - startX + 500 - 500 * nextPosition}px)`
+                    }
+                    let up = event => {
+                        document.removeEventListener('mousemove', move)
+                        document.removeEventListener('mouseup', up)
+                    }
+                    document.addEventListener('mousemove', move)
+                    document.addEventListener('mouseup', up)
+                })
             }
         }
+
+
         //create
         let carousel = new Carousel();
         carousel.data = [
@@ -89,7 +117,6 @@
         ];
         //update
         carousel.render();
-
         carousel.root = document.getElementById('container').appendChild(carousel.root)
     </script>
 </body>
