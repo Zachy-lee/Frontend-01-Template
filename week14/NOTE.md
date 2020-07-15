@@ -74,7 +74,7 @@ module.exports = {
 ### 解析 CSS
 
 css-loader ⽤于加载 .css ⽂件，并且转换成 commonjs 对象
-style-loader 将样式通过 <style> 标签插⼊到 head 中
+style-loader 将样式通过<style> 标签插⼊到 head 中
   
 ### 解析 Less 和 SaSS
   
@@ -115,5 +115,25 @@ Contenthash：根据⽂件内容来定义 hash ，⽂件内容不变，则 conte
 ## 组件化核心：用恰当的语言去表示 attribute、property、children
 
 
+##  setTimeout 与 requestAnimationFrame
 
+```
 
+  setTimeout(() => { }, 16) // 16ms为一帧 推荐
+
+``` 
+
+不推荐以下写法
+
+```
+  // promise  
+  // requestAnimationFrame(() => {
+  //     requestAnimationFrame(() => { // 此处必要 与 setTimeout不完全等价
+  //         current.style.transition = 'ease .5s'
+  //         next.style.transition = 'ease .5s'
+  //         current.style.transform = `translateX(${-100 - 100 * position}%)`
+  //         next.style.transform = `translateX(${-100 * nextPosition}%)`
+  //     })
+  // })
+
+```
