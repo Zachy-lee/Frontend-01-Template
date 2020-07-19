@@ -1,8 +1,7 @@
 module.exports = {
     entry: './main.js',
     module: {
-        rules: [
-            {
+        rules: [{
             test: /\.(js|jsx)$/,
             use: {
                 loader: 'babel-loader',
@@ -16,13 +15,12 @@ module.exports = {
                     ]
                 }
             }
-        },{
-            test:/\.view/,
-            use:{
-                loader:require.resolve('./myloader.js')
+        }, {
+            test: /\.view/,
+            use: {
+                loader: require.resolve('./myloader.js')
             }
-        }
-    ]
+        }]
     },
     mode: "development",
     optimization: {

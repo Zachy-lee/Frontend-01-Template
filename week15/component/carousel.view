@@ -1,5 +1,24 @@
 <template>
-  <div>This will be pre-compiled</div>
+    <div>
+        <img/>
+    </div>
 </template>
-<script src="./my-component.js"></script>
-<style src="./my-component.css"></style>
+<script>
+    export default {
+        el: '#example',
+        data: {
+            message: 'Hello'
+        },
+        computed: {
+            // a computed getter
+            reversedMessage: function() {
+                // `this` points to the vm instance
+                let i = 1;
+                while (i < 100) {
+                    i++;
+                }
+                return this.message.split('').reverse().join('')
+            }
+        }
+    }
+</script>

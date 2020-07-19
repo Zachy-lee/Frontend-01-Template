@@ -11,7 +11,7 @@
       "skipFiles": [
         "<node_internals>/**"
       ],
-      "program": "${workspaceFolder}/week07/toy-browser-n/7-combineText/client.js"
+      "program": "${workspaceFolder}/parserTest.js"
     }
   ]
 }
