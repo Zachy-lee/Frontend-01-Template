@@ -4,12 +4,13 @@ export class Timeline {
     }
     tick() {
         let t = Date.now() - this.startTime;
-        // console.log(t);
+        console.log(t);
         for (const animation of this.animations) {
             if (t > animation.duration + animation.delay)
                 continue;
             let { object, property, template, start, end, timingFunction, delay } = animation;
             object[property] = template(timingFunction(start, end)(t - delay))
+            console.log('template(timingFunction(start, end)(t - delay))', template(timingFunction(start, end)(t - delay)));
         }
         requestAnimationFrame(() => this.tick())
     }
@@ -31,7 +32,7 @@ export class Animation {
         this.delay = delay || 0;
         this.duration = duration;
         this.timingFunction = timingFunction || ((start, end) => {
-            return t => { start + (t / duration) * (end - start) }
+            return (t) => start + (t / duration) * (end - start)
         })
     }
 

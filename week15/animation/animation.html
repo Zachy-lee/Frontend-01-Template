@@ -7,5 +7,12 @@
 </style>
 <div id='el'></div>
 <script type="module">
-    import { Timeline, Animation } from './animation.js'; let tl = new Timeline(); tl.start(); tl.add(new Animation(el.style, 'transform', v => `translateX(${v})`, 0, 200, 5000)); tl.start();
+
+    import { Timeline, Animation } from './animation.js'; 
+
+    let el= document.querySelector('#el')
+    let tl = new Timeline();
+    
+     tl.add(new Animation(el.style, 'transform', v => `translateX(${v}px)`, 0, 400, 5000)); 
+     tl.start();
 </script>
