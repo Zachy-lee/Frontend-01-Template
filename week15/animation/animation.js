@@ -1,18 +1,33 @@
 export class Timeline {
     constructor() {
         this.animations = [];
+        this.requestID = null
     }
     tick() {
         let t = Date.now() - this.startTime;
+        console.log(t);
+        this.animations = this.animations.filter(animation => !animation.finished)
         for (const animation of this.animations) {
-            if (t > animation.duration + animation.delay)
-                continue;
             let { object, property, template, start, end, delay, timingFunction } = animation;
             let progression = timingFunction((t - delay) / animation.duration) // 0-1 之间的数
+            if (t > animation.duration + animation.delay) {
+                progression = 1;
+                animation.finished = true;
+            }
             let value = start + progression * (end - start)
             object[property] = template(value)
         }
-        requestAnimationFrame(() => this.tick())
+        if (this.animations.length)
+            this.requestID = requestAnimationFrame(() => this.tick())
+    }
+    pause() {
+        this.pauseTime = Date.now();
+        if (this.requestID)
+            cancelAnimationFrame(this.requestID)
+    }
+    resume() {
+        this.startTime += Date.now() - this.pauseTime;
+        this.tick();
     }
     start() {
         this.startTime = Date.now()
