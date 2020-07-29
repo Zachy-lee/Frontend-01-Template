@@ -10,7 +10,7 @@ function enableGesture(element) {
                 move(event, contexts[MOUSE_SYMBOL])
             }
             let mouseend = event => {
-                end(event, contexts[MOUSE_SYMBOL])
+                en d(event, contexts[MOUSE_SYMBOL])
                 document.removeEventListener('mousemove', mousemove)
                 document.removeEventListener('mouseup', mouseend)
             }
