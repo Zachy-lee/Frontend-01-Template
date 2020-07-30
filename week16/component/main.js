@@ -1,7 +1,7 @@
 import { createElement, Text, Wrapper } from './createElement'
 // import { Carousel } from './carousel.view'
 import { Timeline, Animation } from './animation'
-import {ease} from './cubicBezier'
+import { ease } from './cubicBezier'
 
 class Carousel {
     constructor(config) {
@@ -27,23 +27,23 @@ class Carousel {
             })
             return element;
         })
-        let root = <div class = 'carousel' > { children } </div>
+        let root = < div class = 'carousel' > { children } < /div>
         let position = 0;
         let timeline = new Timeline
-        window.xtimeline=timeline;
+        window.xtimeline = timeline;
         timeline.start();
         let nextPic = () => {
             let nextPosition = (position + 1) % this.data.length // 循环处理技巧
- 
+
             let current = children[position];
             let next = children[nextPosition];
-            console.log('current',current);
-            
-            let currentAnimation =new Animation(current.style,'transform',-100  * position,100 - 100 * position,500,0,ease,v => `translateX(${v}%)`);
-            let nextAnimation =new Animation(next.style,'transform',-100 - 100 * position,- 100 * nextPosition,500,0,ease,v => `translateX(${v}%)`);
+            console.log('current', current);
+
+            let currentAnimation = new Animation(current.style, 'transform', -100 * position, 100 - 100 * position, 500, 0, ease, v => `translateX(${v}%)`);
+            let nextAnimation = new Animation(next.style, 'transform', -100 - 100 * position, -100 * nextPosition, 500, 0, ease, v => `translateX(${v}%)`);
             timeline.add(currentAnimation)
             timeline.add(nextAnimation)
-           
+
             position = nextPosition;
             window.xstopHandler = setTimeout(nextPic, 3000);
         }

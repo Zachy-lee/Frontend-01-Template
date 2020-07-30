@@ -16,11 +16,11 @@ export function cubicBezier(p1x, p1y, p2x, p2y) {
     }
 
     function sampleCurveX(t) {
-        return ((ax * t + bx) * t + cx ) * t;
+        return ((ax * t + bx) * t + cx) * t;
     }
 
     function sampleCurveY(t) {
-        return ((ay * t + by) * t + cy ) * t;
+        return ((ay * t + by) * t + cy) * t;
     }
 
     // Given an x value, find a parametric value it came from.
@@ -80,3 +80,6 @@ export function cubicBezier(p1x, p1y, p2x, p2y) {
 
     return solve;
 }
+
+export const ease = cubicBezier(.25, .1, .25, 1)
+export const linear = cubicBezier(0, 0, 1, 1)

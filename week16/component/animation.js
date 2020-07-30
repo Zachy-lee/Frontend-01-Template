@@ -25,7 +25,7 @@ export class Timeline {
 
                 let value = animation.valueFromProgression(progression)
                 object[property] = template(value)
-                // console.log(property, object[property]);
+                    // console.log(property, object[property]);
             }
             if (this.animations.size)
                 this.requestID = requestAnimationFrame(this.tick)
@@ -33,7 +33,6 @@ export class Timeline {
                 this.requestID = null
         }
     }
-
     pause() {
         if (this.state !== 'playing') return;
         this.state = 'paused';
@@ -69,7 +68,7 @@ export class Timeline {
         this.state = 'playing';
         this.startTime = Date.now();
         this.pauseTime = null;
-        this.tick();
+        this.state = 'inited'
     }
     restart() {
         if (this.state === 'playing')
@@ -77,7 +76,7 @@ export class Timeline {
         for (const animation of this.finishedAnimations) {
             this.animations.add(animation)
         }
-        this.finishedAnimations = new Set();
+        this.finishedAnimations = new Set;
         this.requestID = null;
         this.state = 'playing';
         this.startTime = Date.now();
@@ -88,13 +87,13 @@ export class Timeline {
 export class Animation {
     constructor(object, property, start, end, duration, delay, timingFunction, template) {
         this.object = object;
-        this.template = template;
         this.property = property;
         this.start = start;
         this.end = end;
         this.delay = delay;
         this.duration = duration;
         this.timingFunction = timingFunction;
+        this.template = template;
     }
     valueFromProgression(progression) {
         return this.start + progression * (this.end - this.start)
