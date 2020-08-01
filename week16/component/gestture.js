@@ -1,5 +1,4 @@
-// export function enableGesture(element)
-function enableGesture(element) {
+export function enableGesture(element) {
     let contexts = Object.create(null)
     let MOUSE_SYMBOL = Symbol('mouse');
     if (!window.Touch) {
@@ -10,7 +9,7 @@ function enableGesture(element) {
                 move(event, contexts[MOUSE_SYMBOL])
             }
             let mouseend = event => {
-                en d(event, contexts[MOUSE_SYMBOL])
+                end(event, contexts[MOUSE_SYMBOL])
                 document.removeEventListener('mousemove', mousemove)
                 document.removeEventListener('mouseup', mouseend)
             }
@@ -60,7 +59,8 @@ function enableGesture(element) {
                 clientX: point.clientX,
                 clientY: point.clientY
             }))
-            // 与公共方法有区别 勿用
+            // 与公共方法有区别
+            console.log('inner start');
         element.dispatchEvent(Object.assign(new CustomEvent('start'), {
             startX: point.clientX,
             startY: point.clientY,
