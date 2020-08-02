@@ -1,22 +1,21 @@
 export function enableGesture(element) {
     let contexts = Object.create(null)
     let MOUSE_SYMBOL = Symbol('mouse');
-    if (!window.Touch) {
-        element.addEventListener('mousedown', (event) => {
-            contexts[MOUSE_SYMBOL] = Object.create(null);
-            start(event, contexts[MOUSE_SYMBOL])
-            let mousemove = event => {
-                move(event, contexts[MOUSE_SYMBOL])
-            }
-            let mouseend = event => {
-                end(event, contexts[MOUSE_SYMBOL])
-                document.removeEventListener('mousemove', mousemove)
-                document.removeEventListener('mouseup', mouseend)
-            }
-            document.addEventListener('mousemove', mousemove)
-            document.addEventListener('mouseup', mouseend)
-        })
-    }
+    element.addEventListener('mousedown', (event) => {
+        contexts[MOUSE_SYMBOL] = Object.create(null);
+        start(event, contexts[MOUSE_SYMBOL])
+        let mousemove = event => {
+            move(event, contexts[MOUSE_SYMBOL])
+        }
+        let mouseend = event => {
+            end(event, contexts[MOUSE_SYMBOL])
+            document.removeEventListener('mousemove', mousemove)
+            document.removeEventListener('mouseup', mouseend)
+        }
+        document.addEventListener('mousemove', mousemove)
+        document.addEventListener('mouseup', mouseend)
+    })
+
 
     // touch 事件模型
     element.addEventListener('touchstart', event => {
@@ -54,14 +53,6 @@ export function enableGesture(element) {
     // touch 行为抽象
     let start = (point, context) => {
         element.dispatchEvent(new CustomEvent('start', {
-                startX: point.clientX,
-                startY: point.clientY,
-                clientX: point.clientX,
-                clientY: point.clientY
-            }))
-            // 与公共方法有区别
-            console.log('inner start');
-        element.dispatchEvent(Object.assign(new CustomEvent('start'), {
             startX: point.clientX,
             startY: point.clientY,
             clientX: point.clientX,
@@ -72,7 +63,7 @@ export function enableGesture(element) {
         context.isTap = true;
         context.isPan = false;
         context.isPress = false;
-        context.timeoutHandleer = setTimeout(() => {
+        context.timeoutHandler = setTimeout(() => {
             if (context.isPan) {
                 return;
             }
@@ -84,7 +75,7 @@ export function enableGesture(element) {
     }
     let move = (point, context) => {
         let dx = point.clientX - context.startX,
-            dy = point.clientX - context.startY
+            dy = point.clientX - context.startY;
 
         if (dx ** 2 + dy ** 2 > 100 && !context.isPan) {
             if (!context.isPress)
@@ -127,12 +118,11 @@ export function enableGesture(element) {
             element.dispatchEvent(new CustomEvent('tap', {}))
         if (context.isPress)
             element.dispatchEvent(new CustomEvent('pressend', {}))
-        clearTimeout(context.timeoutHandleer)
+        clearTimeout(context.timeoutHandler)
     }
-    let cancel = () => {
+    let cancel = (point, context) => {
         element.dispatchEvent(new CustomEvent('canceled', {}))
-        if (context.timeoutHandleer)
-            clearTimeout(context.timeoutHandleer)
+        clearTimeout(context.timeoutHandler)
     }
 
     function dspEvent(name, point, context, element) {

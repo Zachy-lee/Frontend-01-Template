@@ -1,19 +1,19 @@
 <body>
     <div id='my' style="transform: translate(0px,0px);width: 100px;height: 100px;background-color: limegreen;"></div>
 </body>
-<script src="./gestture.js"></script>
+<script src="./gesture.js"></script>
 <script>
     window.addEventListener('contextmenu', (event) => {
         event.preventDefault()
     })
     document.addEventListener('selectstart', (event) => {
-        event.preventDefault()
-    })
-    document.addEventListener('touchmove', (event) => {
-        event.preventDefault()
-    }, {
-        passive: false
-    })
+            event.preventDefault()
+        })
+        // document.addEventListener('touchmove', (event) => {
+        //     event.preventDefault()
+        // }, {
+        //     passive: false
+        // })
     enableGesture(document.body)
     let x = 0,
         y = 0;

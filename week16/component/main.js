@@ -1,5 +1,5 @@
-import { createElement, Text, Wrapper } from './createElement'
-import {Carousel } from './carouse'
+import { createElement } from './createElement'
+import { Carousel } from './carousel'
 
 
 
@@ -14,4 +14,3 @@ let component = < Carousel data = {
 />
 
 component.mountTo(document.body)
-console.log(component);
