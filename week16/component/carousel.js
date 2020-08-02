@@ -1,6 +1,8 @@
-import { createElement, Text, Wrapper } from './createElement'
+import { createElement} from './createElement'
 import { Timeline, Animation } from './animation'
 import { ease } from './cubicBezier'
+
+
 export class Carousel {
     constructor(config) {
         this.children = [];
@@ -35,7 +37,6 @@ export class Carousel {
 
                 let currentTransfromValue = Number(currentElement.style.transform.match(/translateX\(([\s\S]+)px\)/)[1])
                 offset = currentTransfromValue + 500 * currentPosition;
-                console.log('offset',offset);
             }
             let onPan = event => {
                 // console.log(lastPosition,currentPosition,nextPosition);
@@ -44,10 +45,13 @@ export class Carousel {
                 let nextElement = children[nextPosition]
 
                 let dx = event.clientX - event.startX
+                console.log('dx',dx);
 
                 let currentTransfromValue = - 500 * currentPosition + offset + dx
                 let lastTransfromValue = -500 - 500 * lastPosition + offset + dx 
                 let nextTransfromValue = 500 - 500 * nextPosition + offset + dx 
+
+                console.log(currentTransfromValue,lastTransfromValue,nextTransfromValue);
 
                 lastElement.style.transform = `translateX(${lastTransfromValue}px)`
                 currentElement.style.transform = `translateX(${currentTransfromValue}px)`
@@ -58,9 +62,9 @@ export class Carousel {
             let onPanend =event => {
                 let direction = 0;
                 let dx = event.clientX - event.startX
-                if (dx+ offset > 250) {
+                if (dx+ offset > 250 || dx > 0 && event.isFlick) {
                     direction = 1;
-                } else if (event.clientX - event.startX < -250) {
+                } else if (dx+ offset< -250 || dx < 0 && event.isFlick) {
                     direction = -1;
                 }
                 timeline.reset();
@@ -88,7 +92,7 @@ export class Carousel {
             let element = < img src = { url }
             onStart = { onStart }
             onPan = { onPan }
-            onPanend = { onPanend }
+            // onPanend = { onPanend }
             enableGesture = { true }
             />;
             element.style.transform = 'translateX(0px)'

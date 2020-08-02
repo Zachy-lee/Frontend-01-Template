@@ -7,20 +7,23 @@ export class Timeline {
         this.state = 'inited'
         this.tick = () => {
             let t = Date.now() - this.startTime;
-            // let animations = this.animations.filter(animation => !animation.finished)
+
             for (let animation of this.animations) {
+
                 let { object, property, template, start, end, duration, delay, timingFunction } = animation;
+
+                if (t < delay + addTime) {
+                    continue;
+                }
+
                 let addTime = this.addTimes.get(animation);
+
                 let progression = timingFunction((t - delay - addTime) / duration) // 0-1 之间的数
 
                 if (t > duration + delay + addTime) {
                     progression = 1;
-                    // animation.finished = true;
                     this.animations.delete(animation);
                     this.finishedAnimations.add(animation);
-                }
-                if (t < delay + addTime) {
-                    continue;
                 }
 
                 let value = animation.valueFromProgression(progression)
@@ -34,7 +37,8 @@ export class Timeline {
         }
     }
     pause() {
-        if (this.state !== 'playing') return;
+        if (this.state !== 'playing')
+            return;
         this.state = 'paused';
         this.pauseTime = Date.now();
         if (this.requestID !== null) {
@@ -87,13 +91,13 @@ export class Timeline {
 export class Animation {
     constructor(object, property, start, end, duration, delay, timingFunction, template) {
         this.object = object;
+        this.template = template;
         this.property = property;
         this.start = start;
         this.end = end;
         this.delay = delay;
         this.duration = duration;
         this.timingFunction = timingFunction;
-        this.template = template;
     }
     valueFromProgression(progression) {
         return this.start + progression * (this.end - this.start)

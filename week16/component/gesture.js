@@ -109,10 +109,10 @@ export function enableGesture(element) {
             let record = context.moves[0];
             let speed = Math.sqrt((record.dx - dx) ** 2 + (record.dy - dy) ** 2) / (Date.now() - record.t);
             let isFlick = speed > 2.5
-            if (speed > 2.5) {
+            if (isFlick) {
                 dspEvent('flick', point, context, element)
             }
-            dspEvent('panend', point, context, element)
+            dspEvent('panend', point, context, element, { isFlick: isFlick })
         }
         if (context.isTap)
             element.dispatchEvent(new CustomEvent('tap', {}))
@@ -125,13 +125,14 @@ export function enableGesture(element) {
         clearTimeout(context.timeoutHandler)
     }
 
-    function dspEvent(name, point, context, element) {
+    function dspEvent(name, point, context, element, last) {
         let e = new CustomEvent(name)
         Object.assign(e, {
             startX: context.startX,
             startY: context.startY,
             clientX: point.clientX,
-            clientY: point.clientY
+            clientY: point.clientY,
+            ...last
         })
         element.dispatchEvent(e)
     }
