@@ -1,5 +1,6 @@
-import { createElement, Text, Wrapper } from './createElement'
-import { Carousel } from './carouse'
+import { createElement } from './createElement'
+import { Carousel } from './carousel'
+import { Panel } from './Panel'
 
 
 
@@ -12,5 +13,8 @@ let component = < Carousel data = {
     ]
 }
 />
-
-component.mountTo(document.body)
+let panel = < Panel title = "this is my panel">
+        <span>This is content</span>
+     </Panel>
+panel.mountTo(document.body)
+// component.mountTo(document.body)
