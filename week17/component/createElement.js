@@ -36,6 +36,9 @@ export class Text {
     mountTo(parent) {
         parent.appendChild(this.root)
     }
+    getAttribute(name) {
+        return name
+    }
 }
 
 export class Wrapper {
@@ -43,7 +46,7 @@ export class Wrapper {
         this.children = []
         this.root = document.createElement(type)
     }
-    setAttribute(name, value) { //attribute
+    setAttribute(name, value) { //attribute 
         this.root.setAttribute(name, value)
         if (name.match(/^on([\s\S]+)$/)) {
             let eventName = RegExp.$1.replace(/^[\s\S]/, c => c.toLowerCase());
@@ -53,6 +56,9 @@ export class Wrapper {
             enableGesture(this.root);
         }
     }
+    getAttribute(name) {
+        return this.root.getAttribute(name)
+    }
     appendChild(child) {
         this.children.push(child)
     }
@@ -61,6 +67,12 @@ export class Wrapper {
     }
     get style() {
         return this.root.style
+    }
+    get classList() {
+        return this.root.classList;
+    }
+    set innerText(text) {
+        return this.root.innerText = text;
     }
     mountTo(parent) {
         parent.appendChild(this.root)

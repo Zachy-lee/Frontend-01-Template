@@ -19,10 +19,10 @@ export class Panel {
         this.root.addEventListener(...arguments)
     }
     render() {
-        return <div class = 'panel' > 
-        <h1>{this.title}</h1>
-        <div> 
-        { this.children } 
+        return <div class = 'panel'> 
+        <h1 style='background-color:lightgreen;width:300px'>{this.title}</h1>
+        <div style='border:1px solid lightgreen;min-height:300px'> 
+            { this.children } 
         </div>
         </div>;
     }

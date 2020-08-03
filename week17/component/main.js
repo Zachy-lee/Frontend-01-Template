@@ -1,6 +1,7 @@
 import { createElement } from './createElement'
 import { Carousel } from './carousel'
 import { Panel } from './Panel'
+import { TabPanel } from './TabPanel'
 
 
 
@@ -13,8 +14,12 @@ let component = < Carousel data = {
     ]
 }
 />
-let panel = < Panel title = "this is my panel">
-        <span>This is content</span>
-     </Panel>
+
+window.panel = < TabPanel>
+        <span title = "this is my panel1">This is content1</span>
+        <span title = "this is my panel2">This is content2</span>
+        <span title = "this is my panel3">This is content3</span>
+        <span title = "this is my panel4">This is content4</span> 
+     </TabPanel>
 panel.mountTo(document.body)
 // component.mountTo(document.body)
