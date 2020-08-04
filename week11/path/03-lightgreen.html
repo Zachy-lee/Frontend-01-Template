@@ -84,7 +84,7 @@
             console.log(x, y);
 
             if (x === end[0] && y === end[1])
-                return true
+                return true //找到终点
             await insert([x - 1, y])
             await insert([x + 1, y])
             await insert([x, y - 1])

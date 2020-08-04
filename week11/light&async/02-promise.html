@@ -69,12 +69,12 @@
 
         function go(params) {
             green()
-            sleep(10000).then(() => {
+            sleep(1000).then(() => {
                 yellow();
                 return sleep(2000);
             }).then(() => {
                 red();
-                return sleep(5000)
+                return sleep(3000)
             }).then(go)
         }
     </script>
