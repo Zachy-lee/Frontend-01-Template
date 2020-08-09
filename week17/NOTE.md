@@ -96,7 +96,66 @@ function gen(a){
 ```
 
 
-## 
-yeoman
+## yeoman
 - 全局安装 npm install -g yo
+- npm link
 - yo xxx
+
+### 依赖管理
+- 自动安装库并编写 package.json
+```
+
+  async prompting() {
+        this.dependency = await this.prompt([{
+            type: "input",
+            name: "name",
+            message: "Would you like to enable the Cool feature"
+        }]);
+     } // 结合提示
+ writing() {
+        const pkgJson = {
+            devDependencies: {
+                eslint: '^3.15.0'
+            },
+            dependencies: {
+                react: '^16.2.0'
+            }
+        };
+
+        // Extend or create package.json file in destination path
+        this.fs.extendJSON(this.destinationPath('package.json'), pkgJson);
+    }
+
+    install() {
+        this.npmInstall();
+    }
+
+```
+
+### 文件系统
+
+```
+    async prompting() {
+        this.answers = await this.prompt([{
+            type: "input",
+            name: "title",
+            message: "your project title"
+        }]);
+    }
+    writing() {
+        this.fs.copyTpl(
+            this.templatePath('index.html'),
+            this.destinationPath('public/index.html'), { title: this.answers }
+        );
+    }
+```
+
+
+## 自研
+
+
+### 输入
+
+### npm
+
+### 文件模板 状态机
