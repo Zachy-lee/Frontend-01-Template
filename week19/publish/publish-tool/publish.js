@@ -3,11 +3,14 @@ const querystring = require('querystring');
 const postData = querystring.stringify({
     'content': 'Hello World!202020'
 });
-const fs =  require('fs');
-
-let filename = './publish/publish-tool/cat.jpg';
-fs.stat(filename,(error,stats)=>{
+const path = require('path')
+let public_path = path.resolve(__dirname, './');
+// let public_path = '';
+const fs = require('fs');
+let filename = public_path + '/cat.jpg';
+fs.stat(filename, (error, stats) => {
     console.log(stats);
+    console.log(error);
     const options = {
         host: 'localhost',
         port: 8081,
@@ -20,9 +23,9 @@ fs.stat(filename,(error,stats)=>{
     };
     const req = http.request(options, (res) => {
         console.log(`STATUS: ${res.statusCode}`);
-        console.log(`HEADERS: ${JSON.stringify(res.headers)}`); 
+        console.log(`HEADERS: ${JSON.stringify(res.headers)}`);
     });
-    
+
     req.on('error', (e) => {
         console.error(`problem with request: ${e.message}`);
     });
@@ -30,7 +33,7 @@ fs.stat(filename,(error,stats)=>{
     // Write data to request body
     let rs = fs.createReadStream(filename);
     rs.pipe(req);
-    rs.on('end',()=>{
+    rs.on('end', () => {
         req.end();
     })
 })
