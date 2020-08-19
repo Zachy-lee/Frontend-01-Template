@@ -1,7 +1,7 @@
 
-###
+### 关于writeStream
  ```
-   // req.pipe(writeStream);
+   req.pipe(writeStream);
 
  ```
  等价于以下写法
