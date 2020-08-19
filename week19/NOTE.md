@@ -18,6 +18,7 @@
 
 
 ### 思考 node stream做成async await iterator 
+封装node stream 可循环访问。
 
 ### 参考链接
 
